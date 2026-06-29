@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cristian Psicólogo — @psicologo.cristian.co</title>
+<meta name="description" content="La psicología detrás de lo que sientes, haces y decides. Contenido psicoeducativo con base científica para Latinoamérica.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --teal: #5DCAA5;
+    --yellow: #F9C74F;
+    --dark: #1a2e24;
+    --dark2: #12201a;
+    --text: #f0f0f0;
+    --muted: #a0b8ad;
+  }
+
+  body {
+    font-family: 'Arial', sans-serif;
+    background: var(--dark2);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* TOP BAR */
+  .top-bar {
+    background: var(--teal);
+    text-align: center;
+    padding: 9px;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--dark);
+    letter-spacing: 1px;
+  }
+
+  /* HERO PERFIL */
+  .profile-section {
+    background: var(--dark);
+    padding: 50px 20px 40px;
+    text-align: center;
+  }
+
+  .avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(93,202,165,0.12);
+    border: 3px solid var(--teal);
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+  }
+
+  .profile-name {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .profile-handle {
+    font-size: 13px;
+    color: var(--teal);
+    margin-bottom: 14px;
+  }
+
+  .profile-tagline {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 420px;
+    margin: 0 auto 28px;
+    font-style: italic;
+  }
+
+  .profile-bio {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+
+  /* REDES SOCIALES */
+  .redes-section {
+    padding: 10px 20px 50px;
+    background: var(--dark);
+  }
+
+  .redes-title {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+
+  .redes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 400px) {
+    .redes-grid { grid-template-columns: 1fr; }
+  }
+
+  .red-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    border: 1px solid rgba(93,202,165,0.25);
+    background: rgba(93,202,165,0.07);
+    transition: all 0.2s;
+  }
+
+  .red-btn:hover {
+    background: rgba(93,202,165,0.15);
+    border-color: var(--teal);
+    transform: translateY(-2px);
+  }
+
+  .red-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .red-info {}
+
+  .red-name {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--text);
+    display: block;
+    line-height: 1.2;
+  }
+
+  .red-handle {
+    font-size: 11px;
+    color: var(--teal);
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: rgba(93,202,165,0.1);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* SECCIÓN EBOOK */
+  .ebook-section {
+    padding: 55px 20px;
+    text-align: center;
+  }
+
+  .ebook-eyebrow {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 14px;
+  }
+
+  .ebook-title {
+    font-size: clamp(20px, 4vw, 28px);
+    font-weight: bold;
+    color: var(--text);
+    max-width: 520px;
+    margin: 0 auto 8px;
+    line-height: 1.3;
+  }
+
+  .ebook-title em {
+    color: var(--yellow);
+    font-style: normal;
+  }
+
+  .ebook-subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 36px;
+  }
+
+  /* MOCKUP LIBRO */
+  .mockup-wrap {
+    max-width: 260px;
+    margin: 0 auto 40px;
+  }
+
+  .mockup-book {
+    background: var(--dark);
+    border: 2px solid var(--teal);
+    border-radius: 10px;
+    padding: 28px 22px;
+    box-shadow: 8px 8px 0px rgba(93,202,165,0.25), 0 20px 50px rgba(0,0,0,0.5);
+    position: relative;
+    text-align: left;
+  }
+
+  .book-spine {
+    position: absolute;
+    left: 0; top: 10px; bottom: 10px;
+    width: 7px;
+    background: var(--teal);
+    border-radius: 2px 0 0 2px;
+  }
+
+  .book-pages {
+    position: absolute;
+    right: -5px; top: 10px; bottom: 10px;
+    width: 5px;
+    background: linear-gradient(to bottom, #ddd, #bbb);
+    border-radius: 0 3px 3px 0;
+  }
+
+  .book-badge {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--dark);
+    font-size: 9px;
+    font-weight: bold;
+    padding: 3px 9px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .book-title-text {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .book-title-text span { color: var(--yellow); }
+
+  .book-sub {
+    font-size: 10px;
+    color: var(--teal);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .book-line {
+    height: 1px;
+    background: rgba(93,202,165,0.25);
+    margin: 14px 0;
+  }
+
+  .book-author-text {
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .book-author-text strong { color: var(--teal); }
+
+  /* HOOK */
+  .hook-box {
+    background: rgba(249,199,79,0.07);
+    border-left: 3px solid var(--yellow);
+    border-radius: 0 10px 10px 0;
+    padding: 18px 22px;
+    max-width: 520px;
+    margin: 0 auto 36px;
+    text-align: left;
+    font-size: 14px;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  /* CONTENIDO */
+  .contenido-section {
+    background: var(--dark);
+    padding: 50px 20px;
+  }
+
+  .contenido-inner {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 14px;
+  }
+
+  .section-h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .feature-list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .feature-list li span.icon {
+    color: var(--teal);
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .feature-list li b { color: var(--text); }
+
+  /* PARA QUIÉN */
+  .forwhom-section {
+    padding: 50px 20px;
+  }
+
+  .forwhom-inner {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .forwhom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 24px;
+  }
+
+  @media (max-width: 480px) {
+    .forwhom-grid { grid-template-columns: 1fr; }
+  }
+
+  .forwhom-card {
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .forwhom-card.yes {
+    background: rgba(93,202,165,0.07);
+    border: 1px solid rgba(93,202,165,0.2);
+  }
+
+  .forwhom-card.no {
+    background: rgba(255,100,100,0.05);
+    border: 1px solid rgba(255,100,100,0.12);
+  }
+
+  .forwhom-card h3 {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .forwhom-card.yes h3 { color: var(--teal); }
+  .forwhom-card.no h3 { color: #ff8080; }
+
+  .forwhom-card ul {
+    list-style: none;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .forwhom-card ul li {
+    padding: 4px 0;
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .forwhom-card.yes ul li::before { content: '✓'; position: absolute; left: 0; color: var(--teal); }
+  .forwhom-card.no ul li::before { content: '✗'; position: absolute; left: 0; color: #ff8080; }
+
+  /* DISCLAIMER */
+  .disclaimer-wrap {
+    padding: 0 20px 40px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .disclaimer-box {
+    background: rgba(249,199,79,0.05);
+    border: 1px solid rgba(249,199,79,0.18);
+    border-radius: 10px;
+    padding: 18px 20px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    text-align: center;
+  }
+
+  .disclaimer-box strong { color: var(--yellow); }
+
+  /* CTA */
+  .cta-section {
+    background: var(--dark);
+    padding: 60px 20px;
+    text-align: center;
+  }
+
+  .price-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .price-amount {
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--yellow);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .price-amount sup { font-size: 22px; vertical-align: super; }
+
+  .price-currency {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--dark);
+    font-size: 15px;
+    font-weight: bold;
+    padding: 16px 44px;
+    border-radius: 50px;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 20px rgba(249,199,79,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 18px;
+    display: block;
+    max-width: 360px;
+    margin: 0 auto 18px;
+  }
+
+  .cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(249,199,79,0.4);
+  }
+
+  .guarantees {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 14px;
+  }
+
+  .guarantee::before { content: '✓ '; color: var(--teal); font-weight: bold; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid rgba(93,202,165,0.1);
+    padding: 36px 20px;
+    text-align: center;
+  }
+
+  .footer-redes {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .footer-link {
+    font-size: 12px;
+    color: var(--teal);
+    text-decoration: none;
+  }
+
+  .footer-tagline {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+
+  .footer-copy {
+    font-size: 10px;
+    color: rgba(160,184,173,0.4);
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  Psicología con base científica · @psicologo.cristian.co
+</div>
+
+<!-- PERFIL -->
+<section class="profile-section">
+  <div class="avatar">🧠</div>
+  <div class="profile-name">Cristian Psicólogo</div>
+  <div class="profile-handle">@psicologo.cristian.co</div>
+  <p class="profile-tagline">"La psicología detrás de lo que sientes, haces y decides."</p>
+  <p class="profile-bio">
+    Psicólogo con más de 9 años de experiencia. Divulgación psicológica accesible y basada en evidencia para Latinoamérica. Contenido en Instagram, TikTok, YouTube y Facebook.
+  </p>
+</section>
+
+<!-- REDES SOCIALES -->
+<section class="redes-section">
+  <p class="redes-title">Sígueme en redes</p>
+  <div class="redes-grid">
+    <a href="https://www.instagram.com/psicologo.cristian.co/" target="_blank" class="red-btn">
+      <span class="red-icon">📸</span>
+      <div class="red-info">
+        <span class="red-name">Instagram</span>
+        <span class="red-handle">@psicologo.cristian.co</span>
+      </div>
+    </a>
+    <a href="https://www.tiktok.com/discover/psicologo-cristian" target="_blank" class="red-btn">
+      <span class="red-icon">🎵</span>
+      <div class="red-info">
+        <span class="red-name">TikTok</span>
+        <span class="red-handle">@psicologo.cristian.co</span>
+      </div>
+    </a>
+    <a href="https://www.youtube.com/channel/UCmG36DXQdlOyh-ukNatEVRg" target="_blank" class="red-btn">
+      <span class="red-icon">▶️</span>
+      <div class="red-info">
+        <span class="red-name">YouTube</span>
+        <span class="red-handle">Cristian Psicólogo</span>
+      </div>
+    </a>
+    <a href="https://www.facebook.com/cristian.psicologo" target="_blank" class="red-btn">
+      <span class="red-icon">📘</span>
+      <div class="red-info">
+        <span class="red-name">Facebook</span>
+        <span class="red-handle">Cristian Psicólogo</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EBOOK -->
+<section class="ebook-section">
+  <p class="ebook-eyebrow">Recurso psicoeducativo</p>
+  <h2 class="ebook-title">Por qué repites <em>lo mismo en el amor</em></h2>
+  <p class="ebook-subtitle">Guía para entender tu apego y empezar a cambiar</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-book">
+      <div class="book-spine"></div>
+      <div class="book-pages"></div>
+      <div class="book-badge">Guía psicoeducativa</div>
+      <div class="book-title-text">Por qué repites <span>lo mismo en el amor</span></div>
+      <div class="book-sub">Guía para entender tu apego<br>y empezar a cambiar</div>
+      <div class="book-line"></div>
+      <div class="book-author-text"><strong>Cristián Díaz</strong><br>Psicólogo · @psicologo.cristian.co</div>
+    </div>
+  </div>
+
+  <div class="hook-box">
+    "¿Por qué sigo eligiendo a alguien que no me elige? ¿Por qué me cuesta salir de relaciones que sé que no me hacen bien? ¿Por qué repito siempre lo mismo aunque prometo que esta vez será diferente?"
+  </div>
+
+  <p style="font-size:14px; color:var(--muted); max-width:480px; margin:0 auto;">
+    Esta guía nació de escuchar a miles de personas con las mismas preguntas. No es autoayuda de frases motivadoras. Es psicología con base científica — en lenguaje accesible.
+  </p>
+</section>
+
+<!-- CONTENIDO -->
+<section class="contenido-section">
+  <div class="contenido-inner">
+    <p class="section-label">Lo que encontrarás adentro</p>
+    <h2 class="section-h2">Una guía completa. Sin relleno.</h2>
+    <ul class="feature-list">
+      <li><span class="icon">🧠</span><div><b>Qué es el apego y cómo se formó en ti</b> — cómo los vínculos tempranos moldean tus relaciones hoy</div></li>
+      <li><span class="icon">🔍</span><div><b>Los 4 estilos de apego</b> — seguro, ansioso, evitativo y desorganizado, y cómo se ven en tus relaciones</div></li>
+      <li><span class="icon">🔄</span><div><b>Por qué repites los mismos patrones</b> — la neurociencia del refuerzo intermitente</div></li>
+      <li><span class="icon">⚗️</span><div><b>El cerebro enamorado</b> — dopamina, cortisol y oxitocina explicados con claridad</div></li>
+      <li><span class="icon">📋</span><div><b>Test de autoconocimiento</b> — identifica tu estilo de apego predominante</div></li>
+      <li><span class="icon">🛠️</span><div><b>5 ejercicios prácticos</b> — con base en TCC, ACT y mindfulness</div></li>
+      <li><span class="icon">📌</span><div><b>Plan de acción personal</b> — define tus próximos pasos concretos</div></li>
+      <li><span class="icon">📚</span><div><b>Glosario y 12 referencias bibliográficas</b> — Bowlby, Ainsworth, Fisher, Gottman y más</div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- PARA QUIÉN -->
+<section class="forwhom-section">
+  <div class="forwhom-inner">
+    <p class="section-label">Claridad antes de comprar</p>
+    <h2 class="section-h2">¿Esta guía es para ti?</h2>
+    <div class="forwhom-grid">
+      <div class="forwhom-card yes">
+        <h3>Sí es para ti si…</h3>
+        <ul>
+          <li>Quieres entender tus patrones en las relaciones</li>
+          <li>Buscas herramientas con base psicológica</li>
+          <li>Tienes disposición para reflexionar</li>
+          <li>Quieres un punto de partida antes del apoyo profesional</li>
+        </ul>
+      </div>
+      <div class="forwhom-card no">
+        <h3>No es para ti si…</h3>
+        <ul>
+          <li>Estás en una crisis que requiere atención inmediata</li>
+          <li>Necesitas diagnóstico o tratamiento clínico</li>
+          <li>Buscas un sustituto para la terapia</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer-wrap">
+  <div class="disclaimer-box">
+    <strong>Aviso importante:</strong> Esta guía es orientación psicoeducativa general. <strong>No reemplaza el acompañamiento de un psicólogo.</strong> Cada persona es diferente y los resultados pueden variar.
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <p class="price-label">Precio de lanzamiento</p>
+  <div class="price-amount"><sup>$</sup>14.99</div>
+  <p class="price-currency">USD · Pago único · Acceso inmediato</p>
+  <a href="https://pay.hotmart.com/I106522066K?checkoutMode=10" class="cta-btn">
+    Quiero la guía ahora
+  </a>
+  <div class="guarantees">
+    <span class="guarantee">Acceso inmediato</span>
+    <span class="guarantee">Garantía 7 días</span>
+    <span class="guarantee">Pago seguro vía Hotmart</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-redes">
+    <a href="https://www.instagram.com/psicologo.cristian.co/" target="_blank" class="footer-link">📸 Instagram</a>
+    <a href="https://www.tiktok.com/discover/psicologo-cristian" target="_blank" class="footer-link">🎵 TikTok</a>
+    <a href="https://www.youtube.com/channel/UCmG36DXQdlOyh-ukNatEVRg" target="_blank" class="footer-link">▶️ YouTube</a>
+    <a href="https://www.facebook.com/cristian.psicologo" target="_blank" class="footer-link">📘 Facebook</a>
+  </div>
+  <p class="footer-tagline">"La psicología detrás de lo que sientes, haces y decides."</p>
+  <p class="footer-copy">© 2026 Cristian Psicólogo · Todos los derechos reservados</p>
+</footer>
+
+</body>
+</html>
