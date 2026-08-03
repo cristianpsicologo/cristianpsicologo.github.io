@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Qué necesitas trabajar? — Cristian Psicólogo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --teal:#5DCAA5;--yellow:#F9C74F;--dark:#0a1510;--dark2:#122018;
+    --card:#172b1f;--border:rgba(93,202,165,0.12);--text:#f0f0f0;
+    --muted:#7a9e8a;--rel:#5DCAA5;--dep:#F9C74F;--reg:#a78bfa;
+  }
+
+  html,body{height:100%;overflow:hidden;}
+  body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);}
+
+  /* Cada pantalla ocupa todo el viewport y tiene su propio scroll */
+  .screen{
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    overflow-y:auto;-webkit-overflow-scrolling:touch;
+    display:none;background:var(--dark);
+    animation:fadeUp .35s ease both;
+  }
+  .screen.active{display:block;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ===== INICIO ===== */
+  .intro-hero{
+    background:linear-gradient(160deg,#0a1510 0%,#122018 60%,#0d1e15 100%);
+    padding:48px 24px 40px;text-align:center;position:relative;overflow:hidden;
+  }
+  .intro-hero::before{content:'';position:absolute;top:-120px;right:-80px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(93,202,165,0.08) 0%,transparent 70%);}
+  .intro-hero::after{content:'';position:absolute;bottom:-80px;left:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(249,199,79,0.05) 0%,transparent 70%);}
+
+  .brand-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(93,202,165,0.1);border:1px solid rgba(93,202,165,0.2);border-radius:30px;padding:6px 16px;font-size:11px;color:var(--teal);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:32px;}
+  .intro-eyebrow{font-size:12px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-weight:500;}
+  .intro-h1{font-family:'Playfair Display',serif;font-size:clamp(26px,6vw,44px);font-weight:700;line-height:1.15;color:var(--text);max-width:600px;margin:0 auto 16px;}
+  .intro-h1 em{color:var(--yellow);font-style:italic;}
+  .intro-sub{font-size:15px;color:var(--muted);max-width:460px;margin:0 auto 24px;line-height:1.65;}
+
+  .intro-meta{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:32px;}
+  .intro-meta-item{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;}
+  .meta-dot{width:3px;height:3px;background:var(--border);border-radius:50%;}
+
+  .btn-cta-main{background:var(--yellow);color:#0a1510;border:none;border-radius:16px;padding:18px 36px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:10px;transition:transform .2s,box-shadow .2s;margin-bottom:28px;}
+  .btn-cta-main:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(249,199,79,0.3);}
+
+  .preview-strip{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;max-width:520px;margin:0 auto;}
+  .preview-card{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;padding:12px 14px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;flex:1;min-width:130px;}
+  .preview-card-icon{font-size:20px;}
+  .preview-card-title{font-weight:600;color:var(--text);display:block;margin-bottom:1px;}
+
+  .intro-or{display:flex;align-items:center;gap:12px;max-width:500px;margin:32px auto 20px;padding:0 24px;}
+  .or-line{flex:1;height:1px;background:var(--border);}
+  .or-text{font-size:11px;color:var(--muted);letter-spacing:1px;white-space:nowrap;}
+
+  .pilares-section{padding:0 24px 48px;max-width:500px;margin:0 auto;}
+  .pilares-label{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;text-align:center;}
+  .pilares-grid{display:flex;flex-direction:column;gap:10px;}
+
+  .pilar-btn{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:15px 18px;cursor:pointer;display:flex;align-items:center;gap:12px;text-align:left;width:100%;font-family:'Inter',sans-serif;transition:transform .15s,border-color .15s,background .15s;}
+  .pilar-btn:hover{transform:translateY(-2px);}
+  .pilar-btn.rel:hover{border-color:var(--rel);background:rgba(93,202,165,0.06);}
+  .pilar-btn.dep:hover{border-color:var(--dep);background:rgba(249,199,79,0.06);}
+  .pilar-btn.reg:hover{border-color:var(--reg);background:rgba(167,139,250,0.06);}
+  .pilar-accent{width:3px;height:40px;border-radius:4px;flex-shrink:0;}
+  .pilar-btn.rel .pilar-accent{background:var(--rel);}
+  .pilar-btn.dep .pilar-accent{background:var(--dep);}
+  .pilar-btn.reg .pilar-accent{background:var(--reg);}
+  .pilar-emoji{font-size:22px;flex-shrink:0;}
+  .pilar-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;}
+  .pilar-desc{font-size:12px;color:var(--muted);line-height:1.4;}
+  .pilar-arrow{margin-left:auto;color:var(--muted);font-size:18px;flex-shrink:0;}
+
+  /* ===== PREGUNTA ===== */
+  .q-header{padding:18px 24px;border-bottom:1px solid var(--border);background:var(--dark2);display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:2;}
+  .q-brand{font-size:12px;color:var(--teal);letter-spacing:1px;font-weight:600;flex-shrink:0;}
+  .q-prog-wrap{flex:1;max-width:280px;}
+  .q-prog-bar{height:4px;background:rgba(93,202,165,0.1);border-radius:4px;overflow:hidden;}
+  .q-prog-fill{height:100%;background:var(--teal);border-radius:4px;transition:width .4s ease;}
+  .q-prog-num{font-size:11px;color:var(--muted);text-align:right;margin-top:4px;}
+
+  .q-body{padding:36px 24px 48px;max-width:540px;margin:0 auto;}
+  .q-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:22px;}
+  .q-badge.rel{background:rgba(93,202,165,0.1);color:var(--rel);}
+  .q-badge.dep{background:rgba(249,199,79,0.1);color:var(--dep);}
+  .q-badge.reg{background:rgba(167,139,250,0.1);color:var(--reg);}
+  .q-badge.gen{background:rgba(93,202,165,0.1);color:var(--teal);}
+
+  .q-text{font-family:'Playfair Display',serif;font-size:clamp(19px,4vw,25px);font-weight:700;line-height:1.3;color:var(--text);margin-bottom:28px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:15px 18px;cursor:pointer;font-size:14px;color:var(--text);display:flex;align-items:center;gap:12px;font-family:'Inter',sans-serif;line-height:1.4;transition:all .15s;text-align:left;width:100%;}
+  .opt:hover{border-color:var(--teal);background:rgba(93,202,165,0.05);}
+  .opt.selected{border-color:var(--teal);background:rgba(93,202,165,0.1);}
+  .opt-letter{width:28px;height:28px;border-radius:8px;border:1.5px solid rgba(93,202,165,0.25);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--teal);flex-shrink:0;}
+  .opt.selected .opt-letter{background:var(--teal);color:var(--dark);border-color:var(--teal);}
+
+  /* ===== EMAIL ===== */
+  .email-wrap{max-width:500px;margin:0 auto;padding:48px 24px;}
+  .email-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(249,199,79,0.1);border:1px solid rgba(249,199,79,0.2);border-radius:30px;padding:6px 16px;font-size:11px;color:var(--yellow);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:20px;}
+  .email-h{font-family:'Playfair Display',serif;font-size:clamp(22px,5vw,30px);font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.2;}
+  .email-sub{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6;}
+
+  .result-peek{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:20px;position:relative;overflow:hidden;}
+  .result-peek::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--yellow));}
+  .peek-label{font-size:10px;color:var(--teal);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-weight:600;}
+  .peek-text{font-size:14px;color:var(--text);line-height:1.6;}
+
+  .blur-preview{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:22px;position:relative;overflow:hidden;}
+  .blur-inner{filter:blur(5px);user-select:none;pointer-events:none;}
+  .blur-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:2;}
+  .blur-icon{font-size:26px;margin-bottom:6px;}
+  .blur-text{font-size:13px;color:var(--text);font-weight:600;}
+  .blur-sub{font-size:11px;color:var(--muted);}
+  .bprow{margin-bottom:10px;}
+  .bprow:last-child{margin-bottom:0;}
+  .bpmeta{display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px;color:var(--muted);}
+  .bptrack{height:6px;background:rgba(255,255,255,0.04);border-radius:6px;overflow:hidden;}
+  .bpfill{height:100%;border-radius:6px;}
+
+  .input-group{margin-bottom:12px;}
+  .input-label{font-size:11px;color:var(--muted);margin-bottom:5px;display:block;letter-spacing:.5px;}
+  .input-field{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;font-size:14px;color:var(--text);font-family:'Inter',sans-serif;outline:none;transition:border-color .15s;}
+  .input-field:focus{border-color:var(--teal);}
+  .input-field::placeholder{color:rgba(122,158,138,0.45);}
+  .privacy-note{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5;}
+  .btn-submit{width:100%;background:var(--yellow);color:#0a1510;border:none;border-radius:14px;padding:18px;font-size:15px;font-weight:700;cursor:pointer;margin-top:18px;transition:transform .2s,box-shadow .2s;font-family:'Inter',sans-serif;}
+  .btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(249,199,79,0.25);}
+  .btn-submit:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+
+  /* ===== RESULTADO ===== */
+  .res-hero{background:linear-gradient(160deg,var(--dark) 0%,var(--dark2) 100%);padding:40px 24px 36px;text-align:center;border-bottom:1px solid var(--border);}
+  .res-badge{display:inline-flex;align-items:center;gap:6px;border-radius:30px;padding:6px 16px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:18px;}
+  .res-badge.rel{background:rgba(93,202,165,0.1);color:var(--rel);border:1px solid rgba(93,202,165,0.2);}
+  .res-badge.dep{background:rgba(249,199,79,0.1);color:var(--dep);border:1px solid rgba(249,199,79,0.2);}
+  .res-badge.reg{background:rgba(167,139,250,0.1);color:var(--reg);border:1px solid rgba(167,139,250,0.2);}
+  .res-emoji{font-size:52px;margin-bottom:14px;}
+  .res-name{font-family:'Playfair Display',serif;font-size:clamp(24px,5vw,34px);font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.2;}
+  .res-name em{font-style:italic;}
+  .res-sub{font-size:14px;color:var(--muted);max-width:440px;margin:0 auto;line-height:1.65;}
+
+  .res-section{padding:28px 24px 0;max-width:540px;margin:0 auto;width:100%;}
+  .res-label{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-weight:600;}
+
+  .rbar-row{margin-bottom:14px;}
+  .rbar-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+  .rbar-name{font-size:13px;color:var(--text);font-weight:500;}
+  .rbar-pct{font-size:14px;font-weight:700;}
+  .rbar-pct.rel{color:var(--rel);}
+  .rbar-pct.dep{color:var(--dep);}
+  .rbar-pct.reg{color:var(--reg);}
+  .rbar-track{height:10px;background:rgba(255,255,255,0.04);border-radius:10px;overflow:hidden;}
+  .rbar-fill{height:100%;border-radius:10px;transition:width 1.2s cubic-bezier(.4,0,.2,1);}
+  .rbar-fill.rel{background:linear-gradient(90deg,#3fb88a,#5DCAA5);}
+  .rbar-fill.dep{background:linear-gradient(90deg,#d4a832,#F9C74F);}
+  .rbar-fill.reg{background:linear-gradient(90deg,#7c6bc9,#a78bfa);}
+
+  .insight-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px;}
+  .insight-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+  .insight-body{font-size:13px;color:var(--muted);line-height:1.6;}
+  .insight-body strong{color:var(--text);display:block;margin-bottom:3px;}
+
+  .guia-box{background:var(--dark2);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:20px;}
+  .guia-top{padding:22px 22px 18px;border-bottom:1px solid var(--border);}
+  .guia-top-label{font-size:10px;color:var(--teal);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-weight:600;}
+  .guia-top-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);margin-bottom:7px;line-height:1.3;}
+  .guia-top-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+
+  .guia-items-wrap{padding:18px 22px;border-bottom:1px solid var(--border);}
+  .guia-items-label{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;font-weight:500;}
+  .guia-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;}
+  .guia-item:last-child{margin-bottom:0;}
+  .guia-num{width:22px;height:22px;border-radius:6px;background:rgba(93,202,165,0.1);border:1px solid rgba(93,202,165,0.2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--teal);flex-shrink:0;margin-top:1px;}
+  .guia-item-text{font-size:13px;color:var(--muted);line-height:1.5;}
+  .guia-item-text strong{color:var(--text);}
+
+  .guia-ctas{padding:18px 22px;}
+  .btn-dl{display:block;width:100%;background:var(--teal);color:var(--dark);border:none;border-radius:12px;padding:15px;font-size:14px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;margin-bottom:10px;transition:transform .15s,box-shadow .15s;font-family:'Inter',sans-serif;}
+  .btn-dl:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(93,202,165,0.2);}
+  .btn-eb{display:block;width:100%;background:transparent;color:var(--yellow);border:1.5px solid rgba(249,199,79,0.3);border-radius:12px;padding:13px;font-size:13px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;transition:all .15s;font-family:'Inter',sans-serif;line-height:1.4;}
+  .btn-eb:hover{background:rgba(249,199,79,0.06);border-color:var(--yellow);}
+
+  .otros-section{padding:0 24px 48px;max-width:540px;margin:0 auto;width:100%;}
+  .otros-label{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+  .otros-grid{display:flex;gap:8px;flex-wrap:wrap;}
+  .otro-btn{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:9px 13px;font-size:12px;color:var(--muted);cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;}
+  .otro-btn:hover{border-color:var(--teal);color:var(--text);}
+
+  .app-footer{text-align:center;padding:20px 24px;font-size:11px;color:rgba(122,158,138,0.35);border-top:1px solid var(--border);}
+  .app-footer a{color:var(--teal);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<!-- INICIO -->
+<div class="screen active" id="screen-inicio">
+  <div class="intro-hero">
+    <div class="brand-tag">✦ Cristian Psicólogo</div>
+    <p class="intro-eyebrow">Test gratuito · 2 minutos</p>
+    <h1 class="intro-h1">¿Qué le está pasando a tu <em>mundo emocional</em> ahora mismo?</h1>
+    <p class="intro-sub">Responde 12 preguntas y descubre qué área necesita más atención. Recibirás una guía gratuita personalizada basada en tu resultado.</p>
+    <div class="intro-meta">
+      <span class="intro-meta-item">🧠 12 preguntas</span>
+      <span class="meta-dot"></span>
+      <span class="intro-meta-item">⚡ 2 minutos</span>
+      <span class="meta-dot"></span>
+      <span class="intro-meta-item">📥 Guía gratuita</span>
+    </div>
+    <button class="btn-cta-main" onclick="startGeneral()">Descubrir mi resultado →</button>
+    <div class="preview-strip">
+      <div class="preview-card"><span class="preview-card-icon">💔</span><div><span class="preview-card-title">Relaciones</span>Vínculos y apego</div></div>
+      <div class="preview-card"><span class="preview-card-icon">🔗</span><div><span class="preview-card-title">Dependencia</span>Apego y autonomía</div></div>
+      <div class="preview-card"><span class="preview-card-icon">🧠</span><div><span class="preview-card-title">Regulación</span>Ansiedad y calma</div></div>
+    </div>
+  </div>
+  <div class="intro-or"><div class="or-line"></div><span class="or-text">O elige directamente</span><div class="or-line"></div></div>
+  <div class="pilares-section">
+    <p class="pilares-label">Ya sé lo que necesito trabajar</p>
+    <div class="pilares-grid">
+      <button class="pilar-btn rel" onclick="startPilar('rel')">
+        <div class="pilar-accent"></div><span class="pilar-emoji">💔</span>
+        <div><div class="pilar-name">Relaciones y vínculos</div><div class="pilar-desc">Patrones en el amor, apego, dinámicas relacionales</div></div>
+        <span class="pilar-arrow">›</span>
+      </button>
+      <button class="pilar-btn dep" onclick="startPilar('dep')">
+        <div class="pilar-accent"></div><span class="pilar-emoji">🔗</span>
+        <div><div class="pilar-name">Dependencia emocional</div><div class="pilar-desc">No poder estar bien sin esa persona, miedo al abandono</div></div>
+        <span class="pilar-arrow">›</span>
+      </button>
+      <button class="pilar-btn reg" onclick="startPilar('reg')">
+        <div class="pilar-accent"></div><span class="pilar-emoji">🧠</span>
+        <div><div class="pilar-name">Regulación emocional</div><div class="pilar-desc">Ansiedad, mente que no para, estrés, descanso</div></div>
+        <span class="pilar-arrow">›</span>
+      </button>
+    </div>
+  </div>
+  <div class="app-footer"><a href="https://www.instagram.com/psicologo.cristian.co/" target="_blank">@psicologo.cristian.co</a> · Orientación general · No reemplaza al psicólogo</div>
+</div>
+
+<!-- PREGUNTA -->
+<div class="screen" id="screen-pregunta">
+  <div class="q-header">
+    <span class="q-brand">Cristian Psicólogo</span>
+    <div class="q-prog-wrap">
+      <div class="q-prog-bar"><div class="q-prog-fill" id="q-prog-fill" style="width:0%"></div></div>
+      <div class="q-prog-num" id="q-prog-num">1 / 12</div>
+    </div>
+  </div>
+  <div class="q-body">
+    <div class="q-badge gen" id="q-badge">Test general</div>
+    <p class="q-text" id="q-text">Cargando...</p>
+    <div class="options" id="options-container"></div>
+  </div>
+</div>
+
+
+
+
+<!-- RESULTADO -->
+<div class="screen" id="screen-resultado">
+  <div class="res-hero">
+    <div class="res-badge rel" id="res-badge">💔 Relaciones</div>
+    <div class="res-emoji" id="res-emoji">💔</div>
+    <h2 class="res-name" id="res-name">Tu perfil</h2>
+    <p class="res-sub" id="res-sub">Tu análisis personalizado.</p>
+  </div>
+
+  <div class="res-section">
+    <p class="res-label">Tu mapa emocional</p>
+    <div id="bars-container"></div>
+  </div>
+
+  <div class="res-section" style="padding-top:24px;">
+    <p class="res-label">Esto dice tu resultado sobre ti</p>
+    <div id="insights-container"></div>
+  </div>
+
+  <div class="res-section" style="padding-top:24px;padding-bottom:28px;">
+    <p class="res-label">Tu guía gratuita personalizada</p>
+    <div class="guia-box">
+      <div class="guia-top">
+        <p class="guia-top-label">Recurso gratuito</p>
+        <h3 class="guia-top-title" id="guia-title">Título</h3>
+        <p class="guia-top-desc" id="guia-desc">Desc.</p>
+      </div>
+      <div class="guia-items-wrap">
+        <p class="guia-items-label">Lo que encontrarás dentro</p>
+        <div id="guia-items"></div>
+      </div>
+      <div class="guia-ctas">
+        <a href="#" class="btn-dl" id="btn-dl" target="_blank">📥 Descargar guía gratuita</a>
+        <a href="#" class="btn-eb" id="btn-eb" target="_blank">✦ <span id="eb-titulo"></span> · <span id="eb-precio"></span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="otros-section">
+    <p class="otros-label">Explorar otros pilares</p>
+    <div class="otros-grid" id="otros-grid"></div>
+  </div>
+
+  <div class="app-footer"><a href="https://www.instagram.com/psicologo.cristian.co/" target="_blank">@psicologo.cristian.co</a> · Orientación general · No reemplaza al psicólogo</div>
+</div>
+
+<script>
+const P={
+  rel:{nombre:'Relaciones y vínculos',emoji:'💔',clase:'rel',badge:'💔 Relaciones',
+    perfiles:[{min:65,nombre:'El vínculo que agota',sub:'Tu sistema relacional está llevando un peso significativo. Hay patrones que se repiten — y entenderlos es el primer paso.'},{min:35,nombre:'El patrón que se repite',sub:'Hay dinámicas en tus relaciones que ya reconoces pero que aún cuestan trabajo cambiar.'},{min:0,nombre:'La claridad relacional',sub:'Tus relaciones son tu área de mayor consciencia. Hay señales que vale la pena observar.'}],
+    guia_titulo:'5 señales de que estás en un vínculo que te agota',
+    guia_desc:'Reconoce los patrones relacionales que te drenan — con señales claras y un ejercicio práctico para evaluar tu situación hoy.',
+    guia_url:'https://cristianpsicologo.github.io/guia-vinculos.html',
+    guia_items:[{t:'Las 5 señales con base psicológica',d:'Desde el desequilibrio de reciprocidad hasta el contagio emocional — explicadas con neurociencia.'},{t:'El termómetro relacional',d:'Un ejercicio para medir cómo te sientes antes y después de estar con esa persona.'},{t:'Preguntas de reflexión por señal',d:'Una pregunta honesta al final de cada señal para aplicarla a tu situación.'},{t:'El puente hacia el cambio',d:'Qué hay detrás del patrón — el apego como raíz — y qué puedes hacer.'}],
+    ebook_titulo:'Por qué repites lo mismo en el amor',ebook_url:'https://pay.hotmart.com/I106522066K?checkoutMode=10',ebook_precio:'USD $14.99',
+    insights:[{i:'🔍',t:'Las relaciones son un espejo',d:'Lo que nos atrae, lo que toleramos y lo que repetimos en los vínculos dice mucho sobre cómo aprendimos a conectar. Explorar eso — sin juzgarse — es uno de los ejercicios más valiosos que existen.'},{i:'🔄',t:'No toda incomodidad significa que algo está mal',d:'A veces los vínculos que más cuestan son los que más nos enseñan. La pregunta no es si duele — sino si lo que obtienes justifica lo que das.'},{i:'💡',t:'Una sola pregunta puede cambiar mucho',d:'¿Cómo me siento cuando estoy con esta persona — y cómo me siento cuando no está? La respuesta honesta a esa pregunta dice más que cualquier test.'}]},
+  dep:{nombre:'Dependencia emocional',emoji:'🔗',clase:'dep',badge:'🔗 Dependencia emocional',
+    perfiles:[{min:65,nombre:'La dependencia que controla',sub:'Tu bienestar emocional está muy ligado a otra persona. Eso tiene raíces profundas — y también tiene salida.'},{min:35,nombre:'El apego que pesa',sub:'Hay patrones de dependencia que ya afectan tu bienestar y tus decisiones.'},{min:0,nombre:'La autonomía que crece',sub:'Tu independencia emocional es relativamente sólida. Hay áreas que vale la pena cuidar.'}],
+    guia_titulo:'Test: ¿Tienes dependencia emocional?',
+    guia_desc:'Identifica con claridad si tus patrones de vínculo son dependencia emocional — con un test basado en psicología clínica.',
+    guia_url:'https://cristianpsicologo.github.io/guia-dependencia.html',
+    guia_items:[{t:'Test de 10 preguntas con interpretación',d:'Tres perfiles de resultado para que sepas exactamente dónde estás hoy.'},{t:'Las 3 señales más ignoradas',d:'El miedo al abandono, la búsqueda de aprobación y tolerar lo que no deberías.'},{t:'La escala de autonomía emocional',d:'Un ejercicio para medir qué tan autónomo eres en esta relación específica.'},{t:'Cuándo buscar apoyo profesional',d:'Señales claras de cuándo esta guía no es suficiente.'}],
+    ebook_titulo:'Cómo salir de la dependencia emocional',ebook_url:'https://pay.hotmart.com/E106953722D?checkoutMode=10',ebook_precio:'USD $12.99',
+    insights:[{i:'🧠',t:'Querer mucho no es lo mismo que depender',d:'Hay una diferencia entre amar profundamente a alguien y necesitar a esa persona para estar bien. Explorar dónde está esa línea en ti es un ejercicio poderoso.'},{i:'⚡',t:'El bienestar propio es un músculo',d:'No se trata de volverse independiente de todos. Se trata de tener fuentes de bienestar que no dependan únicamente de una sola persona.'},{i:'🌱',t:'Algunas preguntas útiles para reflexionar',d:'¿Cómo me siento cuando esa persona no está disponible? ¿Qué hago con ese tiempo? ¿Disfruto estar conmigo mismo? Las respuestas dicen mucho.'}]},
+  reg:{nombre:'Regulación emocional',emoji:'🧠',clase:'reg',badge:'🧠 Regulación emocional',
+    perfiles:[{min:65,nombre:'La mente que no descansa',sub:'Tu sistema nervioso está llevando una carga alta. Hay formas muy concretas de regularlo — empiezan hoy.'},{min:35,nombre:'La ansiedad presente',sub:'Hay patrones de ansiedad que ya afectan tu bienestar. Entender qué los genera es el punto de partida.'},{min:0,nombre:'La calma que construiste',sub:'Tu regulación es relativamente sólida. Estas herramientas pueden ayudarte a mantenerla.'}],
+    guia_titulo:'3 ejercicios para calmar tu sistema nervioso hoy',
+    guia_desc:'Herramientas concretas basadas en neurociencia que puedes aplicar hoy mismo — en menos de 10 minutos.',
+    guia_url:'https://cristianpsicologo.github.io/guia-regulacion.html',
+    guia_items:[{t:'Respiración 4-7-8 paso a paso',d:'La técnica más respaldada para activar el sistema parasimpático en minutos.'},{t:'Grounding 5-4-3-2-1',d:'El ejercicio que interrumpe el loop ansioso llevando la atención al presente real.'},{t:'Activación del nervio vago',d:'Tres formas simples de activar el regulador maestro del sistema nervioso.'},{t:'Guía de cuándo usar cada ejercicio',d:'Qué herramienta usar en cada situación — en casa, en público, antes de dormir.'}],
+    ebook_titulo:'Por qué tu cerebro no puede apagarse',ebook_url:'https://pay.hotmart.com/Q106954872M?checkoutMode=10',ebook_precio:'USD $12.99',
+    insights:[{i:'🧠',t:'La mente activa no siempre es un problema',d:'Un cerebro que piensa mucho también es un cerebro que procesa, que anticipa, que cuida. La clave no es apagarlo — es aprender a regularlo cuando se activa de más.'},{i:'🔄',t:'El cuerpo siempre avisa primero',d:'La tensión en los hombros, el nudo en el estómago, la respiración corta. Antes de que la mente nombre lo que siente, el cuerpo ya lo está viviendo.'},{i:'💪',t:'Regular no es reprimir',d:'Hay una diferencia importante entre calmar una emoción y suprimirla. Lo que no se procesa no desaparece — solo busca otra salida. Estas herramientas ayudan a procesarlo.'}]},
+};
+
+const QG=[
+  {p:'rel',t:'¿Con qué frecuencia terminas dando más de lo que recibes en tus relaciones afectivas?',o:['Casi nunca','A veces','Con bastante frecuencia','Casi siempre']},
+  {p:'dep',t:'¿Tu estado de ánimo depende en gran medida de cómo esté una persona importante en tu vida?',o:['Casi nunca','A veces','Con bastante frecuencia','Casi siempre']},
+  {p:'reg',t:'¿Tu mente sigue activa cuando intentas descansar o dormir?',o:['Casi nunca','A veces','Con bastante frecuencia','Casi siempre']},
+  {p:'rel',t:'¿Reconoces patrones que se repiten en tus relaciones aunque quieras que sea diferente?',o:['Casi nunca','A veces','Con bastante frecuencia','Casi siempre']},
+  {p:'dep',t:'¿Sientes ansiedad cuando alguien importante no te responde rápido?',o:['Casi nunca','A veces','Con bastante frecuencia','Casi siempre']},
+  {p:'reg',t:'¿Te preocupas por cosas que probablemente no van a pasar?',o:['Casi nunca','A veces','Con bastante frecuencia','Casi siempre']},
+  {p:'rel',t:'¿Te cuesta salir de relaciones que sabes que no te hacen bien?',o:['Casi nunca','A veces','Con bastante frecuencia','Casi siempre']},
+  {p:'dep',t:'¿Has dejado de hacer cosas importantes para ti para estar disponible para esa persona?',o:['Casi nunca','A veces','Con bastante frecuencia','Casi siempre']},
+  {p:'reg',t:'¿Sientes tensión física — hombros, mandíbula, estómago — sin una razón física clara?',o:['Casi nunca','A veces','Con bastante frecuencia','Casi siempre']},
+  {p:'rel',t:'¿La ambigüedad en un vínculo — no saber qué son — te genera mucho agotamiento?',o:['Casi nunca','A veces','Con bastante frecuencia','Casi siempre']},
+  {p:'dep',t:'¿Toleras comportamientos que no deberías porque tienes miedo de perder esa relación?',o:['Casi nunca','A veces','Con bastante frecuencia','Casi siempre']},
+  {p:'reg',t:'¿Cuando algo va bien, esperas que algo malo venga después?',o:['Casi nunca','A veces','Con bastante frecuencia','Casi siempre']},
+];
+
+const QE={
+  rel:[
+    {p:'rel',t:'¿Sientes que siempre das más de lo que recibes en tus relaciones?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'rel',t:'¿Reconoces el mismo tipo de persona en tus relaciones aunque sepas que no te conviene?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'rel',t:'¿Te cuesta pedir claridad en un vínculo por miedo a la respuesta?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'rel',t:'¿Cambias quién eres para mantener una relación?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'rel',t:'¿Después de estar con ciertas personas te sientes peor que antes?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'rel',t:'¿Sientes que depende de ti mantener el vínculo vivo?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'rel',t:'¿Te has quedado en relaciones que te hacían daño porque no sabías cómo salir?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'rel',t:'¿La ambigüedad en un vínculo te genera ansiedad constante?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+  ],
+  dep:[
+    {p:'dep',t:'¿Tu estado de ánimo depende en gran medida de cómo esté esa persona importante?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'dep',t:'¿Sientes ansiedad intensa cuando esa persona no responde rápido?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'dep',t:'¿Has dejado de hacer cosas importantes para ti para estar disponible para esa persona?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'dep',t:'¿Toleras comportamientos que no deberías por miedo a perder la relación?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'dep',t:'¿Necesitas la aprobación de esa persona para sentirte bien contigo mismo?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'dep',t:'¿Sientes vacío o no sabes qué hacer contigo cuando esa persona no está?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'dep',t:'¿Cuando hay conflicto, casi siempre eres tú quien cede primero?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'dep',t:'¿Tienes miedo real a que esa relación termine aunque a veces sientes que no te hace bien?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+  ],
+  reg:[
+    {p:'reg',t:'¿Tu mente sigue activa cuando intentas descansar o dormir?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'reg',t:'¿Te preocupas por cosas que probablemente no van a pasar?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'reg',t:'¿Sientes tensión física — hombros, mandíbula, estómago — sin razón clara?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'reg',t:'¿Cuando algo va bien, esperas que algo malo venga después?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'reg',t:'¿Tu estado de ánimo cambia sin una razón aparente?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'reg',t:'¿Sientes que no puedes descansar sin sentirte culpable?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'reg',t:'¿Evitas situaciones que te generan ansiedad aunque eso limite tu vida?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+    {p:'reg',t:'¿Tu ansiedad aparece en el cuerpo — palpitaciones, nudo en el estómago?',o:['Casi nunca','A veces','Con frecuencia','Casi siempre']},
+  ],
+};
+
+let E={modo:null,pilarEsp:null,qs:[],idx:0,pts:{rel:0,dep:0,reg:0},respuestas:[],pcts:{},pg:null,nombre:'',email:''};
+
+// Frases personalizadas por pregunta y nivel de respuesta (3-4 = alto, 1-2 = bajo)
+const FRASES={
+  // TEST GENERAL
+  gen:{
+    rel0:{alto:'Probablemente das más de lo que recibes — y a veces no sabes cómo parar.',bajo:'En general logras equilibrar lo que das y lo que recibes, aunque hay momentos donde eso cuesta.'},
+    rel3:{alto:'Reconoces el patrón pero igual vuelves. Y eso te agota más que la relación misma.',bajo:'Tienes claridad sobre lo que quieres en tus relaciones, aunque el camino a veces no es lineal.'},
+    rel6:{alto:'Sabes que algo no está bien, pero irse se siente más difícil que quedarse.',bajo:'Cuando algo no funciona, generalmente puedes tomar distancia antes de que te haga demasiado daño.'},
+    rel9:{alto:'La incertidumbre en un vínculo te consume más de lo que debería — necesitas saber dónde estás.',bajo:'Puedes tolerar cierta ambigüedad en los vínculos sin que te quite el sueño.'},
+    dep1:{alto:'Tu día puede empezar bien y derrumbarse con un mensaje tardío. Esa montaña rusa es agotadora.',bajo:'Tu estado de ánimo no depende tanto de los demás — tienes recursos propios para regularte.'},
+    dep4:{alto:'Un silencio puede sentirse como una señal de alarma aunque no haya ninguna razón real.',bajo:'Toleras bien los silencios y la espera sin que disparen ansiedad intensa.'},
+    dep7:{alto:'Has puesto en pausa cosas importantes tuyas para estar disponible. Y eso tiene un costo.',bajo:'Mantienes tus propios espacios y actividades aunque estés en una relación importante.'},
+    dep10:{alto:'Toleras cosas que en el fondo sabes que no deberías — y eso tiene que ver con el miedo a perder.',bajo:'Tienes claridad sobre lo que estás dispuesto a tolerar y lo que no.'},
+    reg2:{alto:'Tu mente trabaja horas extra cuando el cuerpo quiere descansar. Ese ciclo es agotador.',bajo:'Generalmente puedes soltar el día cuando llega la noche sin que la mente siga corriendo.'},
+    reg5:{alto:'Hay un guion en tu cabeza donde las cosas salen mal antes de que siquiera pasen.',bajo:'Tiendes a preocuparte en la justa medida — sin construir escenarios que todavía no existen.'},
+    reg8:{alto:'Tu cuerpo avisa antes de que la mente lo nombre — tensión, nudo, respiración cortada.',bajo:'Tu cuerpo generalmente está en calma — no carga señales físicas de tensión sin razón.'},
+    reg11:{alto:'Cuando todo va bien, esperas que algo lo interrumpa. Disfrutar completamente se siente arriesgado.',bajo:'Puedes disfrutar los momentos buenos sin anticipar que algo va a salir mal.'},
+  },
+  // TEST ESPECÍFICO REL
+  rel:{
+    0:{alto:'Probablemente das más de lo que recibes — y a veces no sabes cómo parar.',bajo:'En general equilibras bien lo que das y recibes, aunque hay momentos donde eso cuesta.'},
+    1:{alto:'Reconoces el tipo de persona que no te conviene — y aun así aparece de nuevo. Eso dice algo.',bajo:'Tienes bastante claridad sobre qué patrones quieres evitar en tus relaciones.'},
+    2:{alto:'Pedir claridad se siente arriesgado — como si la respuesta pudiera romper algo.',bajo:'Generalmente puedes preguntar lo que necesitas saber sin que eso te paralice.'},
+    3:{alto:'Cambias algo de ti para que el otro se quede. Y con el tiempo ya no sabes bien quién eres en esa relación.',bajo:'Mantienes bastante bien quién eres dentro de tus relaciones, sin moldearte demasiado al otro.'},
+    4:{alto:'Hay personas con las que salir se siente bien pero volver a casa cuesta — porque algo quedó en el cuerpo.',bajo:'Generalmente las personas de tu círculo te suman más de lo que te drenan.'},
+    5:{alto:'Sientes que si no estás pendiente, el vínculo se cae. Eso es demasiado peso para una sola persona.',bajo:'Puedes soltar el control del vínculo y confiar en que el otro también pone de su parte.'},
+    6:{alto:'Sabes que algo no está bien, pero irse se siente más difícil que quedarse.',bajo:'Cuando algo no funciona, generalmente puedes tomar distancia antes de que te haga demasiado daño.'},
+    7:{alto:'La incertidumbre en un vínculo te consume más de lo que debería — necesitas saber dónde estás.',bajo:'Puedes tolerar cierta ambigüedad sin que te quite el sueño.'},
+  },
+  // TEST ESPECÍFICO DEP
+  dep:{
+    0:{alto:'Tu día puede empezar bien y derrumbarse con un mensaje tardío. Esa montaña rusa es agotadora.',bajo:'Tu estado de ánimo no depende tanto de los demás — tienes recursos propios para regularte.'},
+    1:{alto:'Un silencio puede sentirse como una señal de alarma aunque no haya ninguna razón real.',bajo:'Toleras bien los silencios y la espera sin que disparen ansiedad intensa.'},
+    2:{alto:'Has puesto en pausa cosas importantes tuyas para estar disponible. Y eso tiene un costo.',bajo:'Mantienes tus propios espacios y actividades aunque estés en una relación importante.'},
+    3:{alto:'Toleras cosas que en el fondo sabes que no deberías — y eso tiene que ver con el miedo a perder.',bajo:'Tienes claridad sobre lo que estás dispuesto a tolerar y lo que no.'},
+    4:{alto:'Necesitas que esa persona apruebe lo que sientes para poder creer que está bien sentirlo.',bajo:'Tu bienestar no depende de la validación constante del otro para sostenerse.'},
+    5:{alto:'Cuando esa persona no está, el tiempo propio se siente vacío. Como si no supieras qué hacer contigo.',bajo:'Disfrutas tu tiempo a solas y tienes recursos propios que no dependen del otro.'},
+    6:{alto:'Cedes para que la tormenta pase — aunque por dentro sepas que tenías razón.',bajo:'Generalmente puedes sostener tu posición en un conflicto sin ceder solo por evitar tensión.'},
+    7:{alto:'Tienes miedo de que se vaya — incluso cuando una parte de ti sabe que quizás sería lo mejor.',bajo:'Puedes evaluar si una relación te hace bien sin que el miedo al fin te nuble el juicio.'},
+  },
+  // TEST ESPECÍFICO REG
+  reg:{
+    0:{alto:'Tu mente trabaja horas extra cuando el cuerpo quiere descansar. Ese ciclo es agotador.',bajo:'Generalmente puedes soltar el día cuando llega la noche sin que la mente siga corriendo.'},
+    1:{alto:'Hay un guion en tu cabeza donde las cosas salen mal antes de que siquiera pasen.',bajo:'Tiendes a preocuparte en la justa medida — sin construir escenarios que todavía no existen.'},
+    2:{alto:'Tu cuerpo avisa antes de que la mente lo nombre — tensión, nudo, respiración cortada.',bajo:'Tu cuerpo generalmente está en calma — no carga señales físicas de tensión sin razón aparente.'},
+    3:{alto:'Cuando todo va bien, esperas que algo lo interrumpa. Disfrutar completamente se siente arriesgado.',bajo:'Puedes disfrutar los momentos buenos sin anticipar que algo va a salir mal.'},
+    4:{alto:'Tu estado de ánimo puede cambiar sin que entiendas bien por qué — y eso desorienta.',bajo:'Tu estado de ánimo generalmente tiene razones que puedes identificar y manejar.'},
+    5:{alto:'Descansar sin haber terminado todo se siente como un lujo que no te puedes permitir.',bajo:'Puedes darte permiso de descansar sin que la culpa aparezca de inmediato.'},
+    6:{alto:'Evitas ciertas situaciones para no sentir esa ansiedad — pero el precio es que tu mundo se va achicando.',bajo:'La ansiedad no te impide hacer lo que necesitas hacer, aunque a veces cueste.'},
+    7:{alto:'La ansiedad no solo está en la mente — se instala en el cuerpo antes de que puedas razonarla.',bajo:'No sientes señales físicas intensas de ansiedad — tu cuerpo generalmente está en calma.'},
+  },
+};
+
+function getFrasesPersonalizadas(){
+  const frases=[];
+  const respuestas=E.respuestas;
+
+  if(E.modo==='general'){
+    // Encontrar las 3 preguntas con puntaje más alto del pilar ganador
+    const delPilar=respuestas.filter(r=>r.p===E.pg).sort((a,b)=>b.v-a.v);
+    delPilar.slice(0,3).forEach(r=>{
+      const key=`${r.p}${r.qi}`;
+      const f=FRASES.gen[key];
+      if(f) frases.push(r.v>=3?f.alto:f.bajo);
+    });
+  } else {
+    // Test específico — top 3 preguntas con puntaje más alto
+    const sorted=[...respuestas].sort((a,b)=>b.v-a.v);
+    sorted.slice(0,3).forEach(r=>{
+      const f=FRASES[E.pg][r.qi];
+      if(f) frases.push(r.v>=3?f.alto:f.bajo);
+    });
+  }
+
+  // Si no hay suficientes frases, completar con genéricas del perfil
+  while(frases.length<3){
+    const pg=P[E.pg];
+    const pv=E.pcts[E.pg];
+    const nivel=pv>60?0:pv>35?1:2;
+    frases.push(pg.perfiles[nivel].sub);
+  }
+
+  return frases.slice(0,3);
+}
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>{
+    s.classList.remove('active');
+    s.scrollTop=0;
+  });
+  const el=document.getElementById(id);
+  el.classList.add('active');
+  el.scrollTop=0;
+}
+
+function startGeneral(){
+  E={...E,modo:'general',qs:QG,idx:0,pts:{rel:0,dep:0,reg:0},respuestas:[]};
+  renderQ();show('screen-pregunta');
+}
+
+function startPilar(p){
+  E={...E,modo:'especifico',pilarEsp:p,qs:QE[p],idx:0,pts:{rel:0,dep:0,reg:0},respuestas:[]};
+  renderQ();show('screen-pregunta');
+}
+
+function renderQ(){
+  const total=E.qs.length,q=E.qs[E.idx];
+  const pct=Math.round((E.idx/total)*100);
+  document.getElementById('q-prog-fill').style.width=pct+'%';
+  document.getElementById('q-prog-num').textContent=(E.idx+1)+' / '+total;
+  const badge=document.getElementById('q-badge');
+  badge.textContent=P[q.p].badge;badge.className='q-badge '+q.p;
+  document.getElementById('q-text').textContent=q.t;
+  const c=document.getElementById('options-container');c.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{
+    if(i>=q.o.length)return;
+    const btn=document.createElement('button');
+    btn.className='opt';
+    btn.innerHTML=`<div class="opt-letter">${l}</div><span>${q.o[i]}</span>`;
+    btn.onclick=()=>pick(i+1,q.p,btn);
+    c.appendChild(btn);
+  });
+}
+
+function pick(val,pilar,btn){
+  document.querySelectorAll('.opt').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  setTimeout(()=>{
+    // Guardar respuesta con índice original de la pregunta en QG o QE
+    const qi=E.modo==='general'
+      ? [0,1,2,3,4,5,6,7,8,9,10,11][E.idx]
+      : E.idx;
+    E.respuestas.push({p:pilar,qi,v:val});
+    E.pts[pilar]+=val;E.idx++;
+    if(E.idx<E.qs.length){renderQ();}else{calcular();}
+  },350);
+}
+
+function calcular(){
+  let pcts={};
+  if(E.modo==='general'){
+    const tot=Object.values(E.pts).reduce((a,b)=>a+b,0);
+    Object.keys(E.pts).forEach(p=>{pcts[p]=tot>0?Math.round((E.pts[p]/tot)*100):33;});
+  } else {
+    const p=E.pilarEsp,max=E.qs.length*4;
+    const pct=Math.round((E.pts[p]/max)*100);
+    pcts={rel:0,dep:0,reg:0};pcts[p]=pct;
+    const otros=Object.keys(pcts).filter(k=>k!==p);
+    pcts[otros[0]]=Math.floor((100-pct)*0.55);
+    pcts[otros[1]]=(100-pct)-pcts[otros[0]];
+  }
+  E.pcts=pcts;
+  E.pg=Object.keys(pcts).reduce((a,b)=>pcts[a]>pcts[b]?a:b);
+  showRes();
+}
+
+function showRes(){
+  const pcts=E.pcts,pg=P[E.pg];
+  const pv=pcts[E.pg];
+  const perfil=pg.perfiles.find(p=>pv>=p.min)||pg.perfiles[pg.perfiles.length-1];
+
+  const badge=document.getElementById('res-badge');
+  badge.textContent=pg.badge;badge.className='res-badge '+E.pg;
+  document.getElementById('res-emoji').textContent=pg.emoji;
+  document.getElementById('res-name').innerHTML=`<em>${perfil.nombre}</em>`;
+  document.getElementById('res-sub').textContent=perfil.sub;
+
+  const bc=document.getElementById('bars-container');bc.innerHTML='';
+  Object.entries(pcts).sort((a,b)=>b[1]-a[1]).forEach(([p,pct])=>{
+    bc.innerHTML+=`<div class="rbar-row">
+      <div class="rbar-meta"><span class="rbar-name">${P[p].emoji} ${P[p].nombre}</span><span class="rbar-pct ${p}">${pct}%</span></div>
+      <div class="rbar-track"><div class="rbar-fill ${p}" style="width:0%" data-t="${pct}"></div></div>
+    </div>`;
+  });
+
+  const ic=document.getElementById('insights-container');ic.innerHTML='';
+  const frases=getFrasesPersonalizadas();
+  ic.innerHTML=`
+    <p style="font-size:11px;color:var(--muted);margin-bottom:12px;line-height:1.5;">
+      Esto es una percepción orientativa basada en tus respuestas — no un criterio clínico ni psicológico. Puede acercarse o no a tu realidad.
+    </p>
+    <div class="insight-card">
+      <div class="insight-body" style="font-size:16px;color:var(--text);line-height:1.65;font-style:italic;">"${frases[0]}"</div>
+    </div>
+  `;
+
+  document.getElementById('guia-title').textContent=pg.guia_titulo;
+  document.getElementById('guia-desc').textContent=pg.guia_desc;
+  const gi=document.getElementById('guia-items');gi.innerHTML='';
+  pg.guia_items.forEach((item,i)=>{
+    gi.innerHTML+=`<div class="guia-item"><div class="guia-num">${i+1}</div><div class="guia-item-text"><strong>${item.t}</strong>${item.d}</div></div>`;
+  });
+  document.getElementById('btn-dl').href=pg.guia_url;
+  document.getElementById('btn-eb').href=pg.ebook_url;
+  document.getElementById('eb-titulo').textContent=pg.ebook_titulo;
+  document.getElementById('eb-precio').textContent=pg.ebook_precio;
+
+  const og=document.getElementById('otros-grid');og.innerHTML='';
+  Object.keys(P).filter(k=>k!==E.pg).forEach(k=>{
+    const btn=document.createElement('button');
+    btn.className='otro-btn';btn.textContent=`${P[k].emoji} ${P[k].nombre}`;
+    btn.onclick=()=>window.open(P[k].guia_url,'_blank');
+    og.appendChild(btn);
+  });
+
+  show('screen-resultado');
+  setTimeout(()=>{document.querySelectorAll('.rbar-fill').forEach(b=>b.style.width=b.dataset.t+'%');},150);
+}
+</script>
+</body>
+</html>
